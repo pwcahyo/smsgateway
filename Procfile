@@ -1,1 +1,1 @@
-web: gunicorn sheltered-mountain-39240.wsgi --log-file -
+web: gunicorn smsgateway.wsgi --log-file -
