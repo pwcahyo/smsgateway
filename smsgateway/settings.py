@@ -25,7 +25,7 @@ SECRET_KEY = 'fiba)3obp_)9f!8kthgjv*969+0f!t5-%=)rm*5curxwbqg5^@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [*]
 
 
 # Application definition
