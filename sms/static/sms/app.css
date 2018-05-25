@@ -1,0 +1,59 @@
+.navbar {
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-control {
+    background-color: transparent;
+    color: black;
+}
+
+.cs-content {
+    margin-top: 25px;
+}
+
+.cs-section-header {
+    height: 50px;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.cs-form-add, .cs-form-edit  {
+    padding: 25px;
+    margin-bottom: 15px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cs-form-add {
+    background-image: url('./picture/microphone.jpg');
+}
+
+.cs-form-edit {
+    background-image: url('./picture/guitar.jpg');
+}
+
+.cs-label-field {
+    color: black;
+}
+
+.cs-form-control {
+    border: 1px solid gray;
+}
+
+.cs-text-center, .cs-text-error {
+    text-align: center;
+}
+
+.cs-text-error {
+    font-style: italic;
+    color: white;
+}
+
+.cs-empty-table {
+    background-color: azure;
+    color: grey;
+}

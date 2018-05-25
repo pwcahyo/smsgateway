@@ -1,0 +1,156 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title >Send SMS App</title>
+    <link rel="stylesheet" href="{% static 'sms/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'sms/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'sms/app.css' %}">
+    <script src="{% static 'sms/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'sms/popper.min.js' %}"></script>
+    <script src="{% static 'sms/bootstrap.min.js' %}"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#005b30;">
+      <a class="navbar-brand" href="#"><img src="{% static 'sms/picture/logo.png' %}"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="/">UNJANI Yogyakarta<span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="/">Tulis Pesan</a>
+          <a class="nav-item nav-link" href="#">Pesan Masuk</a>
+          <a class="nav-item nav-link disabled" href="#"></a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+    
+    {% block content  %}
+
+    <div class="row cs-section-header">
+        <div class="col-lg-12"><h4 style="text-align:center;margin-top:3%;">SMS Broadcast Universitas Jenderal Achmad Yani Yogyakarta</h4></div>
+    </div>
+
+    <div class="row" style="text-align:center;margin-top:6%;">
+        <div class="col-lg-8">
+            {% include 'sms/send_form.html' %}
+        </div>
+        <div class="col-lg-4">
+            <div style="text-align:left; padding:15px; background-color:#f4ecd8;border-style:ridge;">
+                <h4>Panduan Penggunaan</h4>
+                <p style="text-align:left;margin-top:30px;"><b>* Pengiriman Secara Personal :</b> dengan hanya mengisi nama pada form pengiriman</p>
+                <b>** Pengiriman secara berkelompok</b> dapat menggunakan 7 cara, berdasarkan : </br>
+                1. Nama Sekolah saja </br>
+                2. Jurusan saja </br>
+                3. Tahun Lulus saja </br>
+                4. Nama sekolah dan Jurusan </br>
+                5. Nama sekolah dan Tahun Lulus </br>
+                6. Jurusan dan Tahun Lulus </br>
+                7. Nama sekolah, Jurusan dan Tahun Lulus</br>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nama / No Handphone</th>
+                <th scope="col">Pesan</th>
+                <th scope="col">Waktu Pengiriman</th>
+                <th scope="col">Status</th>
+                <th scope="col">Sekolah</th>
+                <th scope="col">Jurusan</th>
+                <th scope="col">Tahun Lulus</th>
+                <th scope="col">Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for sms in outbox %}
+            <tr>
+                <td>{{ sms.id }}</td>
+                <td>{{ sms.person }}</td>
+                <td>{{ sms.text }}</td>
+                <td>{{ sms.time }}</td>
+                <td>{{ sms.status }}</td>
+                <td>{{ sms.school }}</td>
+                <td>{{ sms.major }}</td>
+                <td>{{ sms.graduate }}</td>
+                <td>
+                    <!--
+                    <a class="btn btn-sm btn-outline-primary" href="edit/{{ sent.id }}">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+                    </a> -->
+                    <a class="btn btn-sm btn-outline-danger" onclick="sendData({{ sms.id }})" data-toggle="modal" data-target="#exampleModalCenter">
+                      <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% if not outbox %}
+              <tr>
+                <td colspan="8" class="cs-text-center cs-empty-table"> SMS terkirim masih kosong </td>
+              </tr>
+            {% endif %}
+            </tbody>
+        </table>
+
+        <!--Start Pagination-->
+        {% if outbox.has_other_pages %}
+          <ul class="pagination">
+            {% if outbox.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{ outbox.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+              <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+            {% endif %}
+            {% for i in outbox.paginator.page_range %}
+              {% if outbox.number == i %}
+                <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if outbox.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ outbox.next_page_number }}">&raquo;</a></li>
+            {% else %}
+              <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            {% endif %}
+          </ul>
+        {% endif %}
+        <!--End Pagination-->
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Confirmation</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure want to Delete this SMS ?</p>
+            </div>
+            <div class="modal-footer">
+              <a class="btn btn-primary" data-dismiss="modal">Cancel</a>
+              <a class="btn btn-danger" id="btn-delete" href="">Delete</a>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    {% endblock  %} 
+
+    </div>
+    <script src="{% static 'sms/app.js' %}"></script>
+  </body>
+</html>

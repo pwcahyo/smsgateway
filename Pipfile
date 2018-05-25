@@ -10,6 +10,10 @@ gunicorn = "*"
 psycopg2 = "*"
 psycopg2-binary="*"
 whitenoise = "*"
+django-widget-tweaks = "*"
+django-autocomplete-light = "*"
+six = "*"
+python-gammu= "*"
 
 [requires]
 python_version = "3.6"
