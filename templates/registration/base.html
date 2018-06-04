@@ -1,0 +1,50 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Django Simple Login{% endblock %}</title>
+</head>
+<body>
+  <header>
+    <h1>Django Simple Login</h1>
+    {% if user.is_authenticated %}
+      Hi {{ user.username }}!
+      <a href="{% url 'logout' %}">logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">login</a>
+    {% endif %}
+  </header>
+  <hr>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+  <hr>
+  <footer>
+    powered by <a href="mailto:pwcahyo@gmail.com?Subject=SMS%20Gateway%20UNJANI" target="_top">pwcahyo@gmail.com</a>
+  </footer>
+</body>
+</html> -->
+
+{% load staticfiles %}
+<!-- templates/registration/login.html -->
+<link rel="stylesheet" href="{% static 'sms/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'sms/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'sms/login.css' %}">
+    <script src="{% static 'sms/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'sms/popper.min.js' %}"></script>
+    <script src="{% static 'sms/bootstrap.min.js' %}"></script>
+<div class="login-page">
+  <div class="form" method="post">
+    <img src="{% static 'sms/picture/unjani.png' %}">
+    </br></br><h6 style="color: #005b30;font-family: "Roboto", sans-serif;"><b>SMS Broadcast UNJANI</b></h6></br>
+    <form class="login-form" method="post">
+      {% csrf_token %}
+      <input type="text" name="username" autofocus="" maxlength="254" required="" id="id_username" placeholder="username">
+      <input type="password" name="password" required="" id="id_password" placeholder="password">
+       <button type="submit">Login</button>
+      <p class="message">Not registered? <a href="mailto:pwcahyo@gmail.com?Subject=SMS%20Gateway%20UNJANI" target="_top">Create an account</a></p>
+    </form>
+  </div>
+</div>
+<script src="{% static 'sms/app.js' %}"></script>

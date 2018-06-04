@@ -6,10 +6,16 @@ from .forms import SendSMSForm
 from dal import autocomplete
 from .models import Person, Job, Major, NextMajor, School, Parent, Inbox, Outbox, MessageStatus
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 import gammu
 import sys
 
 def index(request):
+    return HttpResponseRedirect('/login')
+
+@login_required
+def home(request):
     """Write SMS Function"""
 
     # Start Pagination
@@ -71,6 +77,7 @@ def index(request):
 
     return render(request, 'sms/index.html', {'form': form, 'outbox': outboxs})
 
+@login_required
 def BulkSMS(form, array_person):
     # Function Broadcast SMS 
 
@@ -111,7 +118,8 @@ def BulkSMS(form, array_person):
         data.append(sms)
     Outbox.objects.bulk_create(data)
 
+@login_required
 def delete(request, pk):
     sms = Outbox.objects.get(pk=pk)
     sms.delete()
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/home')

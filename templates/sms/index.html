@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title >Send SMS App</title>
+    <title >UNJANI Broadcast SMS</title>
     <link rel="stylesheet" href="{% static 'sms/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'sms/font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'sms/app.css' %}">
@@ -13,19 +13,19 @@
     <script src="{% static 'sms/bootstrap.min.js' %}"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#005b30;">
+    <nav class="navbar fixed-top navbar-expand-lg" style="background-color:#005b30;">
       <a class="navbar-brand" href="#"><img src="{% static 'sms/picture/logo.png' %}"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="/">UNJANI Yogyakarta<span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" href="/">Tulis Pesan</a>
+          <a class="nav-item nav-link" href="/home">Tulis Pesan</a>
           <a class="nav-item nav-link" href="#">Pesan Masuk</a>
           <a class="nav-item nav-link disabled" href="#"></a>
         </div>
       </div>
+      <a class="nav-item nav-link" href="{% url 'logout' %}">logout</a>
     </nav>
 
     <div class="container">
@@ -33,10 +33,10 @@
     {% block content  %}
 
     <div class="row cs-section-header">
-        <div class="col-lg-12"><h4 style="text-align:center;margin-top:3%;">SMS Broadcast Universitas Jenderal Achmad Yani Yogyakarta</h4></div>
+        <div class="col-lg-12"><h4 style="text-align:center;margin-top:9%;">SMS Broadcast Universitas Jenderal Achmad Yani Yogyakarta</h4></div>
     </div>
 
-    <div class="row" style="text-align:center;margin-top:6%;">
+    <div class="row" style="text-align:center;margin-top:10%;">
         <div class="col-lg-8">
             {% include 'sms/send_form.html' %}
         </div>
@@ -124,9 +124,8 @@
           </ul>
         {% endif %}
         <!--End Pagination-->
-
     </div>
-
+    <div style="float:right;">pwcahyo@gmail.com | 2018</div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

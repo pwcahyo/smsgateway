@@ -18,6 +18,7 @@ from django.urls import include, path
 
 
 urlpatterns = [
-	path('sendsms/', include('sendsms.urls')),
+	path('', include('sms.urls')),
+	path('auth/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 ]
