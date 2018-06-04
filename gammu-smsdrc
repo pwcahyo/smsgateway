@@ -1,0 +1,31 @@
+# /etc/gammu-smsdrc
+[gammu]
+device = /dev/tty.HUAWEIMobile-Modem
+connection = at115200
+model = at
+synchronizetime = yes
+logfile = /Users/pwcahyo/.gammu/log
+logformat = errorsdate
+gammucoding = utf8
+
+[smsd]
+Service = sql
+driver = native_pgsql
+PIN = 1234
+LogFile = syslog
+User = smsd
+Password = 
+PC = localhost
+Database = smsd
+
+#Service = files
+#PIN = 1234
+#CheckSecurity = 0
+#LogFile = /Users/pwcahyo/Library/Logs/gammu.log
+#InboxPath = /Users/pwcahyo/.gammu/inbox/
+#OutboxPath = /Users/pwcahyo/.gammu/outbox/
+#SentSMSPath = /Users/pwcahyo/.gammu/sent/
+#ErrorSMSPath = /Users/pwcahyo/.gammu/error/
+#DebugLevel = 1
+#RunOnReceive = python /Users/pwcahyo/.gammu/forwardToIMessage.py +62855000000 IN
+#CheckBattery = 0
